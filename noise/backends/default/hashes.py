@@ -12,65 +12,63 @@ cryptography_backend = default_backend()
 
 class CryptographyHash(Hash, metaclass=abc.ABCMeta):
     def hash(self, data):
-        digest = hashes.Hash(self.fn(), cryptography_backend)
-        digest.update(data)
-        return digest.finalize()
+        pass
 
 
 class SHA256Hash(CryptographyHash):
     @property
     def fn(self):
-        return hashes.SHA256
+        pass
 
     @property
     def hashlen(self):
-        return 32
+        pass
 
     @property
     def blocklen(self):
-        return 64
+        pass
 
 
 class SHA512Hash(CryptographyHash):
     @property
     def fn(self):
-        return hashes.SHA512
+        pass
 
     @property
     def hashlen(self):
-        return 64
+        pass
 
     @property
     def blocklen(self):
-        return 128
+        pass
 
 
 class BLAKE2sHash(CryptographyHash):
     @property
     def fn(self):
-        return partial(hashes.BLAKE2s, digest_size=self.hashlen)
+        pass
 
     @property
     def hashlen(self):
-        return 32
+        pass
 
     @property
     def blocklen(self):
-        return 64
+        pass
 
 
 class BLAKE2bHash(CryptographyHash):
     @property
     def fn(self):
-        return partial(hashes.BLAKE2b, digest_size=self.hashlen)
+        pass
 
     @property
     def hashlen(self):
-        return 64
+        pass
 
     @property
     def blocklen(self):
-        return 128
+        pass
 
 
 def hmac_hash(key, data, algorithm):

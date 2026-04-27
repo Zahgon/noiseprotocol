@@ -71,8 +71,7 @@ class NoiseConnection(object):
         self._next_fn = self.write_message
 
     def set_as_responder(self):
-        self.noise_protocol.initiator = False
-        self._next_fn = self.read_message
+        pass
 
     def set_keypair_from_private_bytes(self, keypair: Keypair, private_bytes: bytes):
         self.noise_protocol.keypairs[_keypairs[keypair]] = \
@@ -83,14 +82,10 @@ class NoiseConnection(object):
             self.noise_protocol.dh_fn.klass.from_public_bytes(private_bytes)
 
     def set_keypair_from_private_path(self, keypair: Keypair, path: str):
-        with open(path, 'rb') as fd:
-            self.noise_protocol.keypairs[_keypairs[keypair]] = \
-                self.noise_protocol.dh_fn.klass.from_private_bytes(fd.read())
+        pass
 
     def set_keypair_from_public_path(self, keypair: Keypair, path: str):
-        with open(path, 'rb') as fd:
-            self.noise_protocol.keypairs[_keypairs[keypair]] = \
-                self.noise_protocol.dh_fn.klass.from_public_bytes(fd.read())
+        pass
 
     def start_handshake(self):
         self.noise_protocol.validate()
@@ -98,19 +93,7 @@ class NoiseConnection(object):
         self._handshake_started = True
 
     def write_message(self, payload: bytes=b'') -> bytearray:
-        if not self._handshake_started:
-            raise NoiseHandshakeError('Call NoiseConnection.start_handshake first')
-        if self._next_fn != self.write_message:
-            raise NoiseHandshakeError('NoiseConnection.read_message has to be called now')
-        if self.handshake_finished:
-            raise NoiseHandshakeError('Handshake finished. NoiseConnection.encrypt should be used now')
-        self._next_fn = self.read_message
-
-        buffer = bytearray()
-        result = self.noise_protocol.handshake_state.write_message(payload, buffer)
-        if result:
-            self.handshake_finished = True
-        return buffer
+        pass
 
     def read_message(self, data: bytes) -> bytearray:
         if not self._handshake_started:
@@ -128,11 +111,7 @@ class NoiseConnection(object):
         return buffer
 
     def encrypt(self, data: bytes) -> bytes:
-        if not self.handshake_finished:
-            raise NoiseHandshakeError('Handshake not finished yet!')
-        if not isinstance(data, bytes) or len(data) > MAX_MESSAGE_LEN:
-            raise NoiseInvalidMessage('Data must be bytes and less or equal {} bytes in length'.format(MAX_MESSAGE_LEN))
-        return self.noise_protocol.cipher_state_encrypt.encrypt_with_ad(None, data)
+        pass
 
     def decrypt(self, data: bytes) -> bytes:
         if not self.handshake_finished:
@@ -148,7 +127,7 @@ class NoiseConnection(object):
         return self.noise_protocol.handshake_hash
 
     def rekey_inbound_cipher(self):
-        self.noise_protocol.cipher_state_decrypt.rekey()
+        pass
 
     def rekey_outbound_cipher(self):
-        self.noise_protocol.cipher_state_encrypt.rekey()
+        pass

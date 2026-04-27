@@ -7,7 +7,7 @@ from noise.functions.cipher import Cipher
 
 class CryptographyCipher(Cipher, metaclass=abc.ABCMeta):
     def encrypt(self, k, n, ad, plaintext):
-        return self.cipher.encrypt(nonce=self.format_nonce(n), data=plaintext, associated_data=ad)
+        pass
 
     def decrypt(self, k, n, ad, ciphertext):
         return self.cipher.decrypt(nonce=self.format_nonce(n), data=ciphertext, associated_data=ad)

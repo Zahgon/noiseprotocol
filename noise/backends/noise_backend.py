@@ -41,24 +41,8 @@ class NoiseBackend:
 
     @property
     def methods(self):
-        return {
-            'pattern': self.patterns,
-            'dh': self.diffie_hellmans,
-            'cipher': self.ciphers,
-            'hash': self.hashes,
-            'keypair': self.keypairs
-        }
+        pass
 
     def map_protocol_name_to_crypto(self, unpacked_name):
-        mappings = {}
-        # Validate if we know everything that Noise Protocol is supposed to use and map appropriate functions
-        for method, map_dict in self.methods.items():
-            looked_up_func = getattr(unpacked_name, method)
-            func = map_dict.get(looked_up_func)
-            if not func:
-                raise NoiseProtocolNameError('Unknown {} in Noise Protocol name, given {}, known {}'.format(
-                                             method, looked_up_func, " ".join(map_dict)))
-            mappings[method] = func
-
-        return mappings
+        pass
 

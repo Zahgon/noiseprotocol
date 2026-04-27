@@ -107,33 +107,4 @@ class UnpackedName:
 
     @classmethod
     def from_protocol_name(cls, name):
-        if not isinstance(name, bytes):
-            raise NoiseProtocolNameError('Protocol name has to be of type "bytes" not {}'.format(type(name)))
-        if len(name) > MAX_PROTOCOL_NAME_LEN:
-            raise NoiseProtocolNameError('Protocol name too long, has to be at most '
-                                         '{} chars long'.format(MAX_PROTOCOL_NAME_LEN))
-
-        unpacked = name.decode().split('_')
-        if unpacked[0] != 'Noise':
-            raise NoiseProtocolNameError('Noise Protocol name shall begin with Noise! Provided: {}'.format(name))
-
-        # Extract pattern name and pattern modifiers
-        pattern = ''
-        modifiers_str = None
-        for i, char in enumerate(unpacked[1]):
-            if char.isupper():
-                pattern += char
-            else:
-                # End of pattern, now look for modifiers
-                modifiers_str = unpacked[1][i:]  # Will be empty string if it exceeds string size
-                break
-        modifiers = modifiers_str.split('+') if modifiers_str else []
-
-        return cls(
-            pattern=pattern,
-            dh=unpacked[2],
-            cipher=unpacked[3],
-            hash=unpacked[4],
-            keypair=unpacked[2],
-            pattern_modifiers=modifiers
-        )
+        pass

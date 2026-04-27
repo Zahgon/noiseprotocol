@@ -21,7 +21,7 @@ class Cipher(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     def rekey(self, k):
-        return self.encrypt(k, MAX_NONCE, b'', b'\x00' * 32)[:32]
+        pass
 
     def initialize(self, key):
         self.cipher = self.klass(key)
